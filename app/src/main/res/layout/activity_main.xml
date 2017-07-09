@@ -18,7 +18,8 @@
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/ed_city_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/city"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -31,19 +32,46 @@
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/ed_state_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/state"/>
 
     </android.support.design.widget.TextInputLayout>
 
-    <!-- Button Add -->
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/bt_add"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_gravity="center"
-        android:text="@string/add"
-        android:textStyle="bold"/>
+        android:gravity="center">
+
+        <!-- Button Add -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_add"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/add"
+            android:textStyle="bold"
+            android:onClick="addSQLiteData"/>
+
+        <!-- Button Update -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_update"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/clear"
+            android:textStyle="bold"
+            android:onClick="clearData"/>
+
+    </LinearLayout>
+
 
 
     <!-- TextView to show Database contents -->
@@ -51,7 +79,8 @@
         android:id="@+id/tv"
         android:layout_marginTop="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 
 </LinearLayout>

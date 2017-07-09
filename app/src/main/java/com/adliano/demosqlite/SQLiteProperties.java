@@ -27,11 +27,11 @@ public final class SQLiteProperties
     {
         public static final String TABLE_NAME = "table_states";
         public static final String COLUMN_STATES = "states";
-        public static final String COLUMN_CAPITALS = "capitals";
+        public static final String COLUMN_CITIES = "capitals";
         // query to create the States table
         public static final String QUERY_CREATE_STATES = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME+
-                "("+_ID+" INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_STATES+ " TEXT NOT NULL," +
-                COLUMN_CAPITALS+" TEXT NOT NULL)";
+                "("+_ID+" INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_STATES+ " TEXT NOT NULL," + COLUMN_CITIES +" TEXT NOT NULL)";
+        // query to drop the States table
+        public static final String QUERY_DROP_STATES = "DROP TABLE IF EXISTS "+TABLE_NAME;
     }
-
 }

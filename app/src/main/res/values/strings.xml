@@ -4,4 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="add">ADD</string>
+    <string name="clear">Clear Data</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="check_fields">Check Fields</string>
 </resources>
