@@ -13,15 +13,8 @@ public class MainActivity extends Activity
 {
     TextView textView;
     SQLiteDatabase database;
-//    String tableName = "myTableTest";
-//    String queryCreateTable = "create table if not exists "+tableName+
-//                              "(_id integer primary key autoincrement,"+
-//                                "states text not null,capitals text not null);";
-
-    String test = SQLiteProperties.StatesTablesProperties.TABLE_NAME;
-
-    String gettingState = null;
-    String gettingCapital = null;
+    String stateName = null;
+    String capitalName = null;
 
     /****************** onCreate() *********************/
     @Override
@@ -35,52 +28,46 @@ public class MainActivity extends Activity
 
         //*** 1) create the database ******/
         database = this.openOrCreateDatabase(SQLiteProperties.DATABASE_NAME,SQLiteDatabase.CREATE_IF_NECESSARY,null);
-//        database=this.openOrCreateDatabase(databaseName,SQLiteDatabase.CREATE_IF_NECESSARY,null);
-       // database.setLockingEnabled(true);
         database.setVersion(SQLiteProperties.DATABASE_VERSION);
 
         //*** 2) create table(s) ********/
         database.execSQL(SQLiteProperties.StatesTablesProperties.QUERY_CREATE_STATES);
-//        database.execSQL(queryCreateTable);
 
         //*** 3) populate table(s)*******/
+        // there is 2 ways to populate the table
+        // A) Using void execSQL (String sql) method
         database.execSQL("INSERT INTO "+ SQLiteProperties.StatesTablesProperties.TABLE_NAME
-                       + "(states, capitals)"
-                       + " VALUES ('california', 'sacramento');");
+                + "("+ SQLiteProperties.StatesTablesProperties.COLUMN_STATES+", "
+                + SQLiteProperties.StatesTablesProperties.COLUMN_CAPITALS+")"
+                + " VALUES ('california', 'sacramento');");
 
-      //  database.execSQL("INSERT INTO "+tableName
-      //          + "(states, capitals)"
-      //          + " VALUES ('alabama', 'montgomery');");
-
-///*
+        // B) Using android.content.ContentValues (Better Approach)
         ContentValues contentValues = new ContentValues();
-
-        contentValues.put("states","Alabama");
-        contentValues.put("capitals","Montgomery");
-        contentValues.put("states","Alaska");
-        contentValues.put("capitals","Juneau");
+        contentValues.put(SQLiteProperties.StatesTablesProperties.COLUMN_STATES,"Alaska");
+        contentValues.put(SQLiteProperties.StatesTablesProperties.COLUMN_CAPITALS,"Juneau");
         long newRowsId = database.insert(SQLiteProperties.StatesTablesProperties.TABLE_NAME,null,contentValues);
-//*/
+
         /**** 4) checking if tables is populated *********/
         Cursor c = database.rawQuery("select * from " + SQLiteProperties.StatesTablesProperties.TABLE_NAME, null);
 
-        int indexOfStates = c.getColumnIndex("states");
-        int indexOfCapitals = c.getColumnIndex("capitals");
+        int indexOfStates = c.getColumnIndex(SQLiteProperties.StatesTablesProperties.COLUMN_STATES);
+        int indexOfCapitals = c.getColumnIndex(SQLiteProperties.StatesTablesProperties.COLUMN_CAPITALS);
 
-       // c.moveToFirst(); //moving cursor to first line
+        String temp = "";
 
-        //while(c.moveToNext())
         for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
         {
-            gettingState = c.getString(indexOfStates);      // 0 means the first field
-            gettingCapital = c.getString(indexOfCapitals);  // 1 means the 2nd field
+            stateName = c.getString(indexOfStates);      // 0 means the first field
+            capitalName = c.getString(indexOfCapitals);  // 1 means the 2nd field
+
+            temp += stateName +" - "+ capitalName+"\n";
         }
         c.close();
 
         /*** display in a TextView ******/
+
         textView=(TextView)findViewById(R.id.tv);
-        textView.setText(""+indexOfStates+" | "+ gettingState +"\n"
-                           +indexOfCapitals+" | "+ gettingCapital);
+        textView.setText(temp);
     }
 }
 /******* END *********/
